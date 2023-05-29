@@ -1,7 +1,6 @@
-DROP DATABASE IF EXISTS employees;
-CREATE DATABASE employees;
-
-USE employees;
+DROP DATABASE IF EXISTS employees_db;
+CREATE DATABASE employees_db;
+USE employees_db;
 
 CREATE TABLE department (
   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -28,3 +27,39 @@ CREATE TABLE employee (
   INDEX man_ind (manager_id),
   CONSTRAINT fk_manager FOREIGN KEY (manager_id) REFERENCES employee(id) ON DELETE SET NULL
 );
+
+-- -- Creates databases
+-- DROP DATABASE IF EXISTS emp_db;
+-- CREATE DATABASE emp_db;
+
+-- USE emp_db;
+
+-- -- Table for dept
+-- CREATE TABLE dept (
+--     id INT PRIMARY KEY AUTO_INCREMENT,
+--     dept_area VARCHAR(30) NOT NULL
+-- );
+
+-- -- Table for job titles
+-- CREATE TABLE role (
+--     id INT PRIMARY KEY AUTO_INCREMENT,
+--     title VARCHAR(30),
+--     salary DECIMAL, 
+--     dept_id INT NOT NULL,
+    
+--     FOREIGN KEY (dept_id)
+--     REFERENCES dept(id)
+-- );
+
+-- -- Table with individual emp info
+-- CREATE TABLE employee (
+--     id INT PRIMARY KEY AUTO_INCREMENT,
+--     first_name VARCHAR(30),
+--     last_name VARCHAR(30),
+--     role_id INT NOT NULL,
+--     FOREIGN KEY (role_id)
+--     REFERENCES role(id),
+--     manager_id INT,
+--     FOREIGN KEY (manager_id)
+--     REFERENCES employee(id)
+-- );
