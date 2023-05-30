@@ -29,15 +29,15 @@ CREATE TABLE employee (
 );
 
 -- -- Creates databases
--- DROP DATABASE IF EXISTS emp_db;
--- CREATE DATABASE emp_db;
+-- DROP DATABASE IF EXISTS role_db;
+-- CREATE DATABASE role_db;
 
--- USE emp_db;
+-- USE role_db;
 
 -- -- Table for dept
--- CREATE TABLE dept (
+-- CREATE TABLE members (
 --     id INT PRIMARY KEY AUTO_INCREMENT,
---     dept_area VARCHAR(30) NOT NULL
+--     band_mates VARCHAR(30) NOT NULL
 -- );
 
 -- -- Table for job titles
