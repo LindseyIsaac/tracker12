@@ -18,14 +18,7 @@ SELECT r.title, r.salary, d.department_name
     JOIN department d ON d.id = r.department_id;
 `;
 
-// view employees data
-// name- employeeTable 
-// employee_id - employeeTable
-// title - roleTable 
-// department - departmentTable
-// manager name - employeeTable
-
-// Query passed through to view employees and their associated roles 
+// Query passed through to view employees and associated roles 
 const viewEmployeeQuery =
 `
 SELECT e.first_name, e.last_name, r.title, r.salary, d.department_name, concat(m.first_name, ' ', m.last_name) AS manager_name
