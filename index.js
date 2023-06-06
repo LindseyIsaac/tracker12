@@ -1,4 +1,3 @@
-// Required packages and connection
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
 require("console.table");
@@ -10,7 +9,7 @@ const db = mysql.createConnection({
     database: 'employee_db'
 });
 
-// Query that i pass through as a variable to view roles
+// Query to view roles
 
 const viewRolesQuery = `
 SELECT r.title, r.salary, d.department_name
@@ -18,7 +17,7 @@ SELECT r.title, r.salary, d.department_name
     JOIN department d ON d.id = r.department_id;
 `;
 
-// Query passed through to view employees and associated roles 
+//this is to see emp and associated roles
 const viewEmployeeQuery =
 `
 SELECT e.first_name, e.last_name, r.title, r.salary, d.department_name, concat(m.first_name, ' ', m.last_name) AS manager_name
@@ -27,8 +26,6 @@ JOIN role r ON e.role_id = r.id
 JOIN department d ON r.department_id = d.id
 LEFT JOIN employee m ON e.manager_id = m.id
 `
-
-// Function to add a department 
 function addDepartment(){
     inquirer
         .prompt([
@@ -46,7 +43,6 @@ function addDepartment(){
         })
 }
 
-// Function to add a role
 function addRole(){
     inquirer
         .prompt ([
@@ -74,8 +70,6 @@ function addRole(){
         })
 }
 
-
-// Function to add a employee
 function addEmployee(){
     db.query("SELECT * FROM ROLE", (err, data)=> {
         const roles = data.map(row => {
@@ -114,7 +108,6 @@ function addEmployee(){
     })
 }
 
-// Function to update a role
 function updateRole(){
     db.query("SELECT * FROM employee", (err, data)=> {
         const employees = data.map(row => { 
@@ -150,7 +143,6 @@ function updateRole(){
 })
 }
 
-// Main function called in program, gives the user a list of choices
 function main() {
     inquirer
         .prompt([
