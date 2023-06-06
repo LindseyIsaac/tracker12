@@ -14,7 +14,7 @@
 
 ## Usage
 
-![example](examples/snip.png)
+![example](/assets/Orchids-637x320%402x.jpg)
 
 ## Credits
 

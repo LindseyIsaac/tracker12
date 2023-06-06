@@ -79,12 +79,12 @@ function addEmployee(){
         .prompt ([
             {
                 type: "input",
-                message: "What is the employees first name?",
+                message: "Employees first name?",
                 name: "firstName"
             },
             {
                 type: "input",
-                message: "What is the employees last name?",
+                message: "Employees last name?",
                 name: "lastName"
             },
             {
@@ -95,7 +95,7 @@ function addEmployee(){
             },
             {
                 type: "input",
-                message: "What is the manager id? (if manager enter NULL)",
+                message: "Is a manager id needed? (if manager enter NULL)",
                 name: "managerId"
             }
         ])
