@@ -3,7 +3,7 @@
 INSERT INTO department(department_name)
 VALUES  ('front'),
         ('back'),
-        ('children');
+        ('goobers');
 
 Insert INTO role(title, salary, department_id)
 VALUES  ('Burger Man', 150000, 1),
@@ -15,7 +15,7 @@ VALUES  ('Burger Man', 150000, 1),
         ('Candy', 666000, 4),
 
 Insert INTO employee(first_name, last_name, role_id, manager_id)
-VALUES ('Bob', 'Belcher', 1, NULL),
+VALUES ('Bob', 'Belcher', 1, 3),
         ('Linda', 'Belcher', 2, 1),
         ('Tina', 'Belcher', 4, NULL),
         ('Gene', 'Belcher', 2, NULL),
