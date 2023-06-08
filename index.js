@@ -24,5 +24,20 @@ LEFT JOIN employee manager ON manager.id = employee.manager_id
 
 function addDept() {
   inquirer
-  idk what im doing tbh ughhhh
+    .prompt([
+      {
+        type: "input",
+        message: "Please enter a department name:",
+        name: "newDept",
+      },
+    ])
+    .then((answer) => {
+      db.query(
+        "INSERT INTO dept (deptName) VALUES (?)",
+        [answer.newDept],
+        (err, res) => {
+          mainMenu();
+        }
+      )
+    })
 }
