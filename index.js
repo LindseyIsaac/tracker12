@@ -17,4 +17,12 @@ JOIN department_id = role.department_id
 
 const viewEmployees = `
 SELECT employee.first_name, employee.last_name, role.title, department.department_area, concat(employees.first_name, ' ', employees.last_name) AS manager_name
-`
+FROM emoloyee
+JOIN role ON employee role.department_id = department.id
+LEFT JOIN employee manager ON manager.id = employee.manager_id
+`;
+
+function addDept() {
+  inquirer
+  idk what im doing tbh ughhhh
+}
