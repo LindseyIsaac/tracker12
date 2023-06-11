@@ -10,16 +10,16 @@ const db = mysql.createConnection({
 });
 
 const viewTitles = `
-SELECT role.title, role.salary, department.department_id
+SELECT role.title, role.salary, department.departmentName
 FROM role
-JOIN department_id = role.department_id
+JOIN departmentId = role.departmentId
 `;
 
 const viewEmployees = `
-SELECT employee.first_name, employee.last_name, role.title, department.department_area, concat(employees.first_name, ' ', employees.last_name) AS manager_name
-FROM emoloyee
-JOIN role ON employee role.department_id = department.id
-LEFT JOIN employee manager ON manager.id = employee.manager_id
+SELECT employee.firstName, employee.lastName, role.title, department.departmentId, concat(employees.firstName, ' ', employees.lastName) AS managerId
+FROM employee
+JOIN role ON employee role.departmentId = department.Id
+LEFT JOIN employee manager ON manager.id = employee.managerId
 `;
 
 function addDept() {
@@ -56,14 +56,14 @@ function addRole() {
       },
       {
         type: "input",
-        message: "What is your department ID?",
+        message: "What is your department Id?",
         name: "deptId",
       },
     ])
     .then((answers) => {
       db.query(
-        "INSERT INTO ROLE (title, salary, deptartment_id) VALUES (?, ?, ?)",
-        [answers.role, answers.salary, answers.deptId],
+        "INSERT INTO ROLE (title, salary, deptartmentId) VALUES (?, ?, ?)",
+        [answers.role, answers.salary, answers.departmentId],
         (err, dataRes) => {
           main();
         }
@@ -102,7 +102,7 @@ function addEmployee() {
       ])
       .then((answers) => {
         db.query(
-          "INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)",
+          "INSERT INTO employee (firstName, lastName, roleId, managerId) VALUES (?, ?, ?, ?)",
           [
             answers.firstName,
             answers.lastName,
@@ -120,7 +120,7 @@ function addEmployee() {
 function updateRole() {
   db.query("SELECT * FROM employee", (err, data) => {
     const employees = data.map((row) => {
-      return { name: `${row.first_name} ${row.last_name}`, value: row.id };
+      return { name: `${row.firstName} ${row.lastName}`, value: row.id };
     });
     db.query("SELECT * FROM role", (err, data) => {
       const newRole = data.map((row) => {
@@ -146,7 +146,7 @@ function updateRole() {
         .then((answers) => {
           console.log(answers);
           db.query(
-            "UPDATE employee SET role_id = ? WHERE id = ?",
+            "UPDATE employee SET roleId = ? WHERE id = ?",
             [answers.newRole, answers.employeeUpdate],
             (err, data) => {
               main();
@@ -178,7 +178,7 @@ function main() {
     .then((answers) => {
       switch (answers.action) {
         case "View all departments":
-          db.query("SELECT * FROM department_ID", (err, dataRes) => {
+          db.query("SELECT * FROM departmentId", (err, dataRes) => {
             console.table(dataRes);
             main();
           });
