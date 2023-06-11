@@ -41,3 +41,177 @@ function addDept() {
       )
     })
 }
+function addRole() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "What is your position?",
+        name: "role",
+      },
+      {
+        type: "input",
+        message: "What is your pay?",
+        name: "salary",
+      },
+      {
+        type: "input",
+        message: "What is your department ID?",
+        name: "deptId",
+      },
+    ])
+    .then((answers) => {
+      db.query(
+        "INSERT INTO ROLE (title, salary, dept_id) VALUES (?, ?, ?)",
+        [answers.role, answers.salary, answers.deptId],
+        (err, dataRes) => {
+          main();
+        }
+      );
+    });
+}
+
+function addEmployee() {
+  db.query("SELECT * FROM ROLE", (err, data) => {
+    const roles = data.map((row) => {
+      return { name: row.title, value: row.id };
+    });
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          message: "Employees first name?",
+          name: "firstName",
+        },
+        {
+          type: "input",
+          message: "Employees last name?",
+          name: "lastName",
+        },
+        {
+          type: "list",
+          message: "Employee's role?",
+          name: "roleId",
+          choices: roles,
+        },
+        {
+          type: "input",
+          message: "Manager id?",
+          name: "managerId",
+        },
+      ])
+      .then((answers) => {
+        db.query(
+          "INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)",
+          [
+            answers.firstName,
+            answers.lastName,
+            answers.roleId,
+            answers.managerId,
+          ],
+          (err, dataRes) => {
+            main();
+          }
+        );
+      });
+  });
+}
+
+function updateRole() {
+  db.query("SELECT * FROM employee", (err, data) => {
+    const employees = data.map((row) => {
+      return { name: `${row.first_name} ${row.last_name}`, value: row.id };
+    });
+    db.query("SELECT * FROM role", (err, data) => {
+      const newRole = data.map((row) => {
+        return { name: row.title, value: row.id };
+      });
+      console.log(employees);
+      inquirer
+        .prompt([
+          {
+            type: "list",
+            message: "What employee role would you like to update?",
+            name: "employeeUpdate",
+            choices: employees,
+          },
+          {
+            type: "list",
+            message:
+              "What new role would you like to assign?",
+            name: "newRole",
+            choices: newRole,
+          },
+        ])
+        .then((answers) => {
+          console.log(answers);
+          db.query(
+            "UPDATE employee SET role_id = ? WHERE id = ?",
+            [answers.newRole, answers.employeeUpdate],
+            (err, data) => {
+              main();
+            }
+          );
+        });
+    });
+  });
+}
+
+function main() {
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        message: "What would you like to choose?",
+        name: "action",
+        choices: [
+          "View all departments",
+          "View all roles",
+          "View all employees",
+          "add a department",
+          "add a role",
+          "add a employee",
+          "update a employee role",
+        ],
+      },
+    ])
+    .then((answers) => {
+      switch (answers.action) {
+        case "View all departments":
+          db.query("SELECT * FROM dept", (err, dataRes) => {
+            console.table(dataRes);
+            main();
+          });
+          break;
+        case "View all roles":
+          db.query(viewTitles, (err, dataRes) => {
+            console.table(dataRes);
+            main();
+          });
+          break;
+        case "View all employees":
+          db.query(viewEmps, (err, dataRes) => {
+            console.table(dataRes);
+            main();
+          });
+          break;
+        case "add a department":
+          addDept();
+          break;
+        case "add a role":
+          addRole();
+          break;
+        case "add a employee":
+          addEmployee();
+          break;
+        case "update a employee role":
+          updateRole();
+          break;
+        default:
+          console.log("Didnt work did it? boooo ugh grrrr");
+          main();
+          break;
+      }
+    });
+}
+main();
