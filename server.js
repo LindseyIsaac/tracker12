@@ -178,7 +178,7 @@ function main() {
     .then((answers) => {
       switch (answers.action) {
         case "View all departments":
-          db.query("SELECT * FROM dept", (err, dataRes) => {
+          db.query("SELECT * FROM department_ID", (err, dataRes) => {
             console.table(dataRes);
             main();
           });

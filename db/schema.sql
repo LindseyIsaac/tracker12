@@ -6,7 +6,7 @@ USE employees_db;
 -- department table
 CREATE TABLE dept (
     id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    deptName VARCHAR(30) NOT NULL
+    departmentName VARCHAR(30) NOT NULL
 );
 
 -- role table
@@ -14,9 +14,9 @@ CREATE TABLE role (
     id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     title VARCHAR (30),
     salary DECIMAL,
-    deptID INT,
-    FOREIGN KEY (deptID)
-    REFERENCES dept(id)
+    deptartment_ID INT,
+    FOREIGN KEY (department_ID)
+    REFERENCES department(id)
 );
 
 -- employee table
