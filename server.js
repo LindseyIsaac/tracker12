@@ -35,7 +35,7 @@ function addDepartment() {
     ])
     .then((answer) => {
       db.query(
-        "INSERT INTO departmentt (departmentName) VALUES (?)",
+        "INSERT INTO department (departmentName) VALUES (?)",
         [answer.newDepartment],
         (err, res) => {
           main();
