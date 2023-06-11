@@ -12,17 +12,19 @@ const db = mysql.createConnection({
 const viewTitles = `
 SELECT role.title, role.salary, department.departmentName
 FROM role
-JOIN departmentId = role.departmentId
+JOIN department ON department.id = role.departmentId
 `;
 
-const viewEmployees = `
-SELECT employee.firstName, employee.lastName, role.title, department.departmentId, concat(employees.firstName, ' ', employees.lastName) AS managerId
+const viewEmployee = `
+SELECT employee.firstName, employee.lastName, role.title, role.salary, department.departmentName, 
+concat(manager.firstName, ' ', manager.lastName) AS managerName
 FROM employee
-JOIN role ON employee role.departmentId = department.Id
-LEFT JOIN employee manager ON manager.id = employee.managerId
+JOIN role ON role.id = employee.roleId
+JOIN department ON department.id = role.departmentId
+LEFT JOIN employee manager ON manager.id = employee.mangerId
 `;
 
-function addDept() {
+function addDepartment() {
   inquirer
     .prompt([
       {
@@ -33,8 +35,8 @@ function addDept() {
     ])
     .then((answer) => {
       db.query(
-        "INSERT INTO dept (deptName) VALUES (?)",
-        [answer.newDept],
+        "INSERT INTO departmentt (departmentName) VALUES (?)",
+        [answer.newDepartment],
         (err, res) => {
           main();
         }
@@ -178,7 +180,7 @@ function main() {
     .then((answers) => {
       switch (answers.action) {
         case "View all departments":
-          db.query("SELECT * FROM departmentId", (err, dataRes) => {
+          db.query("SELECT * FROM department", (err, dataRes) => {
             console.table(dataRes);
             main();
           });
@@ -190,7 +192,7 @@ function main() {
           });
           break;
         case "View all employees":
-          db.query(viewEmps, (err, dataRes) => {
+          db.query(viewEmployee, (err, dataRes) => {
             console.table(dataRes);
             main();
           });
