@@ -15,11 +15,11 @@ VALUES  ('Burger Man', 150000, 1),
         ('Candy', 666000, 4),
 
 Insert INTO employee(first_name, last_name, role_id, manager_id)
-VALUES ('Bob', 'Belcher', 1, 3),
+VALUES ('Bob', 'Belcher', 1, NULL),
         ('Linda', 'Belcher', 2, 1),
-        ('Tina', 'Belcher', 4, NULL),
-        ('Gene', 'Belcher', 2, NULL),
-        ('Louise', 'Belcher', 3, NULL),
+        ('Tina', 'Belcher', 4, 3),
+        ('Gene', 'Belcher', 2),
+        ('Louise', 'Belcher', 4, 3),
         ('Teddy', 'Handyman', 4, 2),
-        ('Mr', 'Fishowner', 3),
+        ('Mr', 'Fishowner', 3, NULL),
         ('Jimmy', 'Pesto Jr', 4, 3);
