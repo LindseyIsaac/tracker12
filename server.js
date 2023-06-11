@@ -62,7 +62,7 @@ function addRole() {
     ])
     .then((answers) => {
       db.query(
-        "INSERT INTO ROLE (title, salary, dept_id) VALUES (?, ?, ?)",
+        "INSERT INTO ROLE (title, salary, deptartment_id) VALUES (?, ?, ?)",
         [answers.role, answers.salary, answers.deptId],
         (err, dataRes) => {
           main();
@@ -168,10 +168,10 @@ function main() {
           "View all departments",
           "View all roles",
           "View all employees",
-          "add a department",
-          "add a role",
-          "add a employee",
-          "update a employee role",
+          "Add a department",
+          "Add a role",
+          "Add a employee",
+          "Update a employee role",
         ],
       },
     ])
