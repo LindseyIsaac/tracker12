@@ -36,7 +36,7 @@ function addDept() {
         "INSERT INTO dept (deptName) VALUES (?)",
         [answer.newDept],
         (err, res) => {
-          mainMenu();
+          main();
         }
       )
     })
