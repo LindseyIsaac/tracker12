@@ -26,3 +26,6 @@ to start the application: node server.start
 ***M Vincent Richards***
 
 ## License
+MIT License
+
+Copyright (c) 2023 Lindsey
