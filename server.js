@@ -12,8 +12,7 @@ const db = mysql.createConnection({
 const viewTitles = `
 SELECT role.title, role.salary, department.departmentName
 FROM role
-JOIN department ON department.id = role.departmentId
-`;
+JOIN department ON department.id = role.departmentId`;
 
 const viewEmployee = `
 SELECT employee.firstName, employee.lastName, role.title, role.salary, department.departmentName, 
@@ -21,8 +20,7 @@ concat(manager.firstName, ' ', manager.lastName) AS managerName
 FROM employee
 JOIN role ON role.id = employee.roleId
 JOIN department ON department.id = role.departmentId
-LEFT JOIN employee manager ON manager.id = employee.mangerId
-`;
+LEFT JOIN employee manager ON manager.id = employee.managerId`;
 
 function addDepartment() {
   inquirer
@@ -30,7 +28,7 @@ function addDepartment() {
       {
         type: "input",
         message: "Please enter a department name:",
-        name: "newDept",
+        name: "newDepartment",
       },
     ])
     .then((answer) => {
@@ -193,20 +191,21 @@ function main() {
           break;
         case "View all employees":
           db.query(viewEmployee, (err, dataRes) => {
+            if(err) throw err
             console.table(dataRes);
             main();
           });
           break;
-        case "add a department":
-          addDept();
+        case "Add a department":
+          addDepartment();
           break;
-        case "add a role":
+        case "Add a role":
           addRole();
           break;
-        case "add a employee":
+        case "Add a employee":
           addEmployee();
           break;
-        case "update a employee role":
+        case "Update a employee role":
           updateRole();
           break;
         default:
