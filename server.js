@@ -209,7 +209,6 @@ function main() {
           updateRole();
           break;
         default:
-          console.log("Didnt work did it? boooo ugh grrrr");
           main();
           break;
       }
